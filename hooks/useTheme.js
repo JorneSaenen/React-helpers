@@ -1,13 +1,9 @@
-import { useEffect } from "react";
-import { useLocalStorage } from "./useLocalStorage";
+import { useLayoutEffect } from "react";
 
-export const useTheme = () => {
-  const [theme, setTheme] = useLocalStorage("theme", "light");
-
-  useEffect(() => {
-    document.body.className = "";
-    document.body.classList.add(theme);
+export const useTheme = (theme) => {
+  useLayoutEffect(() => {
+    for (const key in theme) {
+      document.documentElement.style.setProperty(`--${key}`, theme[key]);
+    }
   }, [theme]);
-
-  return [theme, setTheme];
 };
